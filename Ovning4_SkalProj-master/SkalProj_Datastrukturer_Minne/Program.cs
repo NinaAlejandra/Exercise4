@@ -74,73 +74,54 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+
+            //Skapa en lista med användarinput
+            //
+
+            //List<string> theList = new List<string>();
+            //string input = Console.ReadLine();
+            //char nav = input[0];
+            //string value = input.substring(1);
+
+            //switch (nav) {...}
+
             Console.WriteLine("Welcome to the list");
-                       
-            List<string> ExamineList = new List<string>(); //skapat en ny lista
+            List<string> ExamineList = new List<string>();
 
-            while (true) // while loop som är igång tills man trycker på enter på en tom sträng
+            while (true)
             {
-                Console.WriteLine("Write an input");
-
+                Console.WriteLine("Enter + to add - to remove (or press Enter to exit to main menu):");
                 string input = Console.ReadLine();
-                char charInput = ' ';
 
-       
-                try
+                if(string.IsNullOrEmpty(input))
                 {
-                    charInput = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
-                }
-                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
-                {
-                    Console.Clear();
-                    Console.WriteLine("Please enter some input!");
+                    break;
                 }
 
+                char operation = input[0];
+                string item = input.Substring(1).Trim();
 
-                //if (string.IsNullOrEmpty(input))
-                //{
-                //    break;
-                //}
-
-                switch (charInput) //fungerar inte just nu
+                switch (operation)
                 {
-                    case '+':
-                        ExamineList.Add(input); // lägga till 
-
+                    case '+': 
+                        ExamineList.Add(item);
                         break;
 
                     case '-':
-                        ExamineList.Remove(input); // ta bort
+                        ExamineList.Remove(item);
                         break;
 
-                    case 'e':
-                        string.IsNullOrEmpty(input); // gå tillbaka till main menu
-                            break;
                     default:
-                        Console.WriteLine("Please input some value");
+                        Console.WriteLine("Please use + or - only");
                         break;
-              }
-
-
-                Console.WriteLine("Contents of the list: ");
-
-                foreach (var item in ExamineList) //foreach visar vad som finns i listan
-                {
-                    Console.WriteLine(item);
                 }
-
-               
+               Console.WriteLine("Contents of the list: ");
+                foreach (var listItem in ExamineList) { Console.WriteLine(listItem); 
             }
+            
 
-                //Skapa en lista med användarinput
-                //
-
-                //List<string> theList = new List<string>();
-                //string input = Console.ReadLine();
-                //char nav = input[0];
-                //string value = input.substring(1);
-
-                //switch (nav) {...}
+            
+            }
             }
 
             /// <summary>
