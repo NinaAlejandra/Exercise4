@@ -74,9 +74,35 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            Console.WriteLine("Welcome to the list");
+                       
+            List<string> ExamineList = new List<string>(); //skapat en ny lista
 
-            List<string> ExamineList = new List<string>();
+            while (true) // while loop som är igång tills man trycker på enter på en tom sträng
+            {
+                Console.WriteLine("Write an input");
 
+                string input = Console.ReadLine();
+
+                
+                if (string.IsNullOrEmpty(input))
+                {
+                    break;
+                }
+
+                ExamineList.Add(input);
+
+            }
+                Console.WriteLine("Contents of the list: ");
+
+                foreach (var item in ExamineList) //foreach visar vad som finns i listan
+                { 
+                Console.WriteLine(item); 
+                }
+            
+
+            //Skapa en lista med användarinput
+            //
 
             //List<string> theList = new List<string>();
             //string input = Console.ReadLine();
