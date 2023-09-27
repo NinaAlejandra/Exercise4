@@ -83,39 +83,70 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Write an input");
 
                 string input = Console.ReadLine();
+                char charInput = ' ';
 
-                
-                if (string.IsNullOrEmpty(input))
+       
+                try
                 {
-                    break;
+                    charInput = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+                }
+                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
                 }
 
-                ExamineList.Add(input);
 
-            }
+                //if (string.IsNullOrEmpty(input))
+                //{
+                //    break;
+                //}
+
+                switch (charInput) //fungerar inte just nu
+                {
+                    case '+':
+                        ExamineList.Add(input); // lägga till 
+
+                        break;
+
+                    case '-':
+                        ExamineList.Remove(input); // ta bort
+                        break;
+
+                    case 'e':
+                        string.IsNullOrEmpty(input); // gå tillbaka till main menu
+                            break;
+                    default:
+                        Console.WriteLine("Please input some value");
+                        break;
+              }
+
+
                 Console.WriteLine("Contents of the list: ");
 
                 foreach (var item in ExamineList) //foreach visar vad som finns i listan
-                { 
-                Console.WriteLine(item); 
+                {
+                    Console.WriteLine(item);
                 }
-            
 
-            //Skapa en lista med användarinput
-            //
+               
+            }
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+                //Skapa en lista med användarinput
+                //
 
-            //switch (nav) {...}
-    }
+                //List<string> theList = new List<string>();
+                //string input = Console.ReadLine();
+                //char nav = input[0];
+                //string value = input.substring(1);
 
-        /// <summary>
-        /// Examines the datastructure Queue
-        /// </summary>
-        static void ExamineQueue()
+                //switch (nav) {...}
+            }
+
+            /// <summary>
+            /// Examines the datastructure Queue
+            /// </summary>
+            static void ExamineQueue()
         {
             /*
              * Loop this method untill the user inputs something to exit to main menue.
