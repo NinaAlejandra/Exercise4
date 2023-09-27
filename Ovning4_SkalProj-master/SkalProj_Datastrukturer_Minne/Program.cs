@@ -56,6 +56,9 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             }
         }
+        //1.
+        //2.
+        //3. 
 
         /// <summary>
         /// Examines the datastructure List
@@ -72,13 +75,16 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
+            List<string> ExamineList = new List<string>();
+
+
             //List<string> theList = new List<string>();
             //string input = Console.ReadLine();
             //char nav = input[0];
             //string value = input.substring(1);
 
-            //switch(nav){...}
-        }
+            //switch (nav) {...}
+    }
 
         /// <summary>
         /// Examines the datastructure Queue
