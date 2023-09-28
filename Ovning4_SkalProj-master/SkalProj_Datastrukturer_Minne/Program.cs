@@ -223,7 +223,14 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
 
                         case '-':
-                        ExamineStack.Pop();
+                        if (ExamineStack.Count > 0)
+                        {
+                            ExamineStack.Pop();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Stack is empty. Cannot pop.");
+                        } 
                         break;
 
                     default: Console.WriteLine("Enter '+' to push an element to the stack or '-' to pop it");
