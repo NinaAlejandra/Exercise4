@@ -56,9 +56,19 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             }
         }
-        //1.
-        //2.
-        //3. 
+        //1. Stacken: stacken används främst för att hålla reda på exekveringsordningen i ett program och för att lagra lokala variabler inne i funktioner.
+        //Den fungerar som en stapel där det senaste tillagda elementet är det första som tas bort. Åtkomst och hantering på stacken är snabb eftersom den är organiserad och strukturerad.
+        //Heapen : heapen används för att lagra stora eller komplicerade saker som tar upp mycket plats som till exempel bilder, långa texter osv. Det är som en stor lagringsplats där vi kan 
+        //ställa in saker och hämta dem senare när vi behöver dem. Som en virtuell låda där vi kan spara olika saker. När vi lägger till saker i heapen så kommer de att stanna där tills vi säger åt datorn att ta bort dem.
+         
+        //exempel: Tänk på stacken som en bok där du kan bläddra fram och tillbaka. Information som är staplat på varann i form sidor i en bok. 
+         //exempel:Medan heapen är snarare ett bibliotek, med adresser till böckerna. Men böckerna kan ju byta plats. Det kan inte informationen på sidor göra. 
+
+        //2. Value types: En variabel av en värdetyp som innehåller själva datavärdet, dessa lagras i stacken. Exempel på value types är int, char, bool etc.
+        // Reference types: En variabel som innehåller en referens (adress i heapen) till platsen där datan lagras. 
+        //3. I första metoden kopierar y bara x från början. sedan ändras värdet på y till 4 men x påverkas inte eftersom y bara har en kopia av x-värdet. Så när man returnerar x i slutet så kommer den fortfarande att bara vara 3.
+        // I andra metoden skapas två instanser av MyInt där x.MyValue sätts till tre. sedan tilldelas y värdet av x, vilket innebär att både x och y nu pekar på samma objekt. Så när man returnerar x.MyValue i slutet så är det 4 för 
+        // att både x och y pekar mot värdet 4. 
 
         /// <summary>
         /// Examines the datastructure List
@@ -76,30 +86,24 @@ namespace SkalProj_Datastrukturer_Minne
             */
 
             //Skapa en lista med användarinput
-            //
-
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
-
-            //switch (nav) {...}
+         
 
             Console.WriteLine("Welcome to the list");
             List<string> ExamineList = new List<string>();
 
             while (true)
             {
-                Console.WriteLine("Enter + to add - to remove (or press Enter to exit to main menu):");
+               
+                Console.WriteLine("\nEnter + to add - to remove (or press Enter to exit to main menu):");
                 string input = Console.ReadLine();
 
-                if(string.IsNullOrEmpty(input))
+                if(string.IsNullOrEmpty(input)) // om inputen är tom när man trycker på enter så går man ur loopen
                 {
                     break;
                 }
 
-                char operation = input[0];
-                string item = input.Substring(1).Trim();
+                char operation = input[0]; // sparar ner det första tecknet av inputen i variabeln operation
+                string item = input.Substring(1).Trim(); //sparar ner resten av inputen i variabeln item och tar bort eventuella mellanslag
 
                 switch (operation)
                 {
@@ -112,17 +116,18 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
 
                     default:
-                        Console.WriteLine("Please use + or - only");
+                        Console.WriteLine("Please use + or - before text");
                         break;
                 }
-               Console.WriteLine("Contents of the list: ");
-                foreach (var listItem in ExamineList) { Console.WriteLine(listItem); 
+               
+               Console.WriteLine("\nContents of the list: ");
+                foreach (var listItem in ExamineList) { Console.WriteLine(listItem);
+                   
+                }
+              Console.WriteLine($"\nCount: {ExamineList.Count}, Capacity: {ExamineList.Capacity}");
             }
             
-
-            
-            }
-            }
+        }
 
             /// <summary>
             /// Examines the datastructure Queue
@@ -134,6 +139,56 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+           
+
+                Queue<string> ExamineQueue = new Queue<string>();
+                
+            while (true) 
+            { 
+                Console.WriteLine("Welcome to the Queue \nEnter '+' to enqueue or '-' to dequeue (or Press Enter to exit to main menu):");
+                string input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input)) 
+                {
+                    break;
+                }
+
+                char operation = input[0];
+                string item = input.Substring (1).Trim();
+
+                switch (operation) 
+                {
+                case '+':   
+                        ExamineQueue.Enqueue(item);
+                        break;
+
+                case '-':
+                        if (ExamineQueue.Count > 0)
+                        {
+                           ExamineQueue.Dequeue();
+                           
+                        }
+                        else
+                        {
+                            Console.WriteLine("Queue is empty. Cannot dequeue.");
+                        }
+
+                        break;
+                        
+                        default:
+                        Console.WriteLine("Enter '+' to add something to the queue or '-' to remove");
+                        break;
+
+                }
+
+                Console.WriteLine("\nContents of the queue: ");
+                foreach (var queueItem in ExamineQueue) 
+                { 
+                    Console.WriteLine(queueItem); 
+                }   
+           
+            }
+
         }
 
         /// <summary>
@@ -146,6 +201,40 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            
+            Stack<string> ExamineStack = new Stack<string>();
+
+            while (true)
+            {
+                Console.WriteLine("Welcome to the stack");
+                string input = Console.ReadLine();
+
+                if(string.IsNullOrEmpty(input))
+                {
+                    break;
+                }
+                char operation = input[0];
+                string item = input.Substring(1).Trim();
+
+                switch (operation)
+                {
+                    case '+':
+                        ExamineStack.Push(item);
+                        break;
+
+                        case '-':
+                        ExamineStack.Pop();
+                        break;
+
+                    default: Console.WriteLine("Enter '+' to push an element to the stack or '-' to pop it");
+                        break;
+                }
+                Console.WriteLine("\nContents of the stack: ");
+                foreach (var stackItem in ExamineStack)
+                {
+                    Console.WriteLine(stackItem);
+                }
+            }
         }
 
         static void CheckParanthesis()
