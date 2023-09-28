@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Reflection.PortableExecutable;
 
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        /// <summary>
-        /// The main method, vill handle the menues for the program
-        /// </summary>
-        /// <param name="args"></param>
+    
         static void Main()
         {
 
@@ -43,10 +41,7 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
+                    
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -66,27 +61,14 @@ namespace SkalProj_Datastrukturer_Minne
 
         //2. Value types: En variabel av en värdetyp som innehåller själva datavärdet, dessa lagras i stacken. Exempel på value types är int, char, bool etc.
         // Reference types: En variabel som innehåller en referens (adress i heapen) till platsen där datan lagras. 
+        
         //3. I första metoden kopierar y bara x från början. sedan ändras värdet på y till 4 men x påverkas inte eftersom y bara har en kopia av x-värdet. Så när man returnerar x i slutet så kommer den fortfarande att bara vara 3.
         // I andra metoden skapas två instanser av MyInt där x.MyValue sätts till tre. sedan tilldelas y värdet av x, vilket innebär att både x och y nu pekar på samma objekt. Så när man returnerar x.MyValue i slutet så är det 4 för 
         // att både x och y pekar mot värdet 4. 
 
-        /// <summary>
-        /// Examines the datastructure List
-        /// </summary>
-        static void ExamineList()
+   
+        static void ExamineList() //raderar strängen som överensstämmer 
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch statement with cases '+' and '-'
-             * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
-             * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
-             * In both cases, look at the count and capacity of the list
-             * As a default case, tell them to use only + or -
-             * Below you can see some inspirational code to begin working.
-            */
-
-            //Skapa en lista med användarinput
-         
 
             Console.WriteLine("Welcome to the list");
             List<string> ExamineList = new List<string>();
@@ -129,19 +111,10 @@ namespace SkalProj_Datastrukturer_Minne
             
         }
 
-            /// <summary>
-            /// Examines the datastructure Queue
-            /// </summary>
-            static void ExamineQueue()
+     
+            static void ExamineQueue() //först in först ut
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch with cases to enqueue items or dequeue items
-             * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-            */
-
            
-
                 Queue<string> ExamineQueue = new Queue<string>();
                 
             while (true) 
@@ -191,10 +164,7 @@ namespace SkalProj_Datastrukturer_Minne
 
         }
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
-        static void ExamineStack()
+        static void ExamineStack() //sist in först ut, som tallriksexemplet tidigare i filen
         {
             /*
              * Loop this method until the user inputs something to exit to main menue.
@@ -251,7 +221,44 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+           
+            Stack<string> openingParanthesis = new Stack<string>();
+            
+            while (true)
+            {
+                Console.WriteLine("Welcome to the Paranthesis Check. \nInput a string with paranthesis.");
+                string input = Console.ReadLine();
 
+                if (string.IsNullOrEmpty(input))
+                {
+                    break;
+                }
+
+                if (input.Contains('(') || input.Contains('{') || input.Contains('['))
+                {
+                    openingParanthesis.Push(input);
+                }
+               
+                if (input.Contains('(') && input.Contains(')') || input.Contains('{') && input.Contains('}') || input.Contains('[') && input.Contains(']')) 
+                {
+                    openingParanthesis.Pop();
+                }
+                else
+                {
+                    Console.WriteLine("Paranthesis does not have a match");
+                }
+
+                Console.WriteLine("\nContents of the stack: ");
+                foreach (var stackItem in openingParanthesis)
+                {
+                    Console.WriteLine(stackItem);
+                }
+
+            }
+            
+        
+        
+          
         }
 
     }
