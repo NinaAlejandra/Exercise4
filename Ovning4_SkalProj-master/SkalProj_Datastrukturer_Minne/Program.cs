@@ -309,7 +309,8 @@ namespace SkalProj_Datastrukturer_Minne
                 }
                 if (openingParanthesis.Count == 0)
                 {
-                    Console.WriteLine("\nNo unmatched paranthesis left");
+                    Console.WriteLine("\nNo unmatched paranthesis left"); //Heltenkelt har alla paranteser matchats upp.
+                                                                          //Borde eventuellt ha använt mig av en boolean, typ if match==true, så skriver konsolen att inputen är välformad. 
                 }
                 else
                 {
