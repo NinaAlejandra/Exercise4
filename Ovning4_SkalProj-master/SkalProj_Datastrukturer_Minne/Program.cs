@@ -15,7 +15,8 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
-                    + "\n4. CheckParanthesis"
+                    + "\n4. Reverse a Text"
+                    + "\n5. CheckParanthesis"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -39,7 +40,10 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                        CheckParanthesis();
+                        ReverseText();
+                        break;
+                    case '5':
+                        CheckParanthesis(); 
                         break;
                     
                     case '0':
@@ -110,6 +114,15 @@ namespace SkalProj_Datastrukturer_Minne
             }
             
         }
+        //1. Implementation av ExamineList står ovan
+        //2. Listans kapacitet ökar när antalet element i listan överstiger den nuvarande kapaciteten.
+        // Dvs, om kapaciteten är fyra, och listan når upp till det så ökar kapaciteten.
+        //3. Kapaciteten ökar med en viss procentandel, beroende på implementeringen. Varierar hur mycket beroende på prestanda och minnesanvändning.
+        //4. Att öka kapaciteten varje gång man lägger till något skulle vara slöseri med tid och minne. Istället ökar kapaciteten när det behövs.
+        //5. Nej, kapaciteten minskar inte automatiskt. Den förblir densamma för att undvika onödigt arbete med att ändra storlek hela tiden. 
+        //6. När man vet exakt hur många element man kommer att ha, och när man vill undvika belastningen på prestantan som uppstår när man hanterar en dynamisk lista.
+        // En egendefinierad array kan ge större kontroll över lagringsallokering och åtkomst, vilket kan va en fördel då.
+
 
      
             static void ExamineQueue() //först in först ut
@@ -164,13 +177,9 @@ namespace SkalProj_Datastrukturer_Minne
 
         }
 
-        static void ExamineStack() //sist in först ut, som tallriksexemplet tidigare i filen
+        static void ExamineStack() //sist in först ut, som tallriksexemplet som jag nämnde tidigare.
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+           
             
             Stack<string> ExamineStack = new Stack<string>();
 
@@ -189,14 +198,15 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (operation)
                 {
                     case '+':
-                        ExamineStack.Push(item);
-                        break;
+                    ExamineStack.Push(item);
+                    break;
 
-                        case '-':
-                        if (ExamineStack.Count > 0)
-                        {
-                            ExamineStack.Pop();
-                        }
+                    case '-':
+                        
+                    if (ExamineStack.Count > 0)
+                    {
+                          ExamineStack.Pop();
+                    }
                         else
                         {
                             Console.WriteLine("Stack is empty. Cannot pop.");
@@ -213,6 +223,37 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             }
         }
+        // 1. Det är inte smart att använda en stack vid simuleringen av en ica-kö för att här gäller först in sist ut.
+        // Dvs skulle det vara en riktig kö, så skulle det innebär att den som stod först i kö, skulle få hjälp sist. 
+        //2. Nedan följer ReverseText metoden, la till den som nummer fem i valmöjligheterna.
+
+        static void ReverseText()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nEnter a text to reverse");
+                string input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    break;
+                }
+
+                Stack<char> reverseStack = new Stack<char>();
+
+                foreach (var stackItem in input)
+                {
+                    reverseStack.Push(stackItem);
+                }
+
+                Console.WriteLine("Reversed string: ");
+
+                while (reverseStack.Count > 0)
+                {
+                    Console.Write(reverseStack.Pop());
+                }
+            }
+        }
 
         static void CheckParanthesis()
         {
@@ -222,11 +263,11 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
            
-            Stack<string> openingParanthesis = new Stack<string>();
+            Stack<char> openingParanthesis = new Stack<char>();
             
             while (true)
             {
-                Console.WriteLine("Welcome to the Paranthesis Check. \nInput a string with paranthesis.");
+                Console.WriteLine("\nWelcome to the Paranthesis Check. \nInput a string with paranthesis.");
                 string input = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(input))
@@ -234,31 +275,55 @@ namespace SkalProj_Datastrukturer_Minne
                     break;
                 }
 
-                if (input.Contains('(') || input.Contains('{') || input.Contains('['))
-                {
-                    openingParanthesis.Push(input);
+                foreach (char paranthesis in input) {
+
+                    if (paranthesis == '(' || paranthesis == '{' || paranthesis == '[')
+                    {
+                        openingParanthesis.Push(paranthesis);
+                    }
+
+                    else if (paranthesis == ')'  || paranthesis == '}' || paranthesis == ']')
+                    {
+                        if (openingParanthesis.Count == 0)
+                        {
+                            Console.WriteLine("\nInvalid input"); //Syns enbart om man försöker lägga till en extra stängande parantes när det inte finns några öppnande kvar.
+                        }
+                        else
+                        {
+                            char opening = openingParanthesis.Pop(); //tar bort den översta öppnade parantesen från stacken och tilldelar den variabeln opening
+                                                                //så att jag kan använda den variabeln och jämföra med den stängande parantesen och se om de matchar.
+
+
+
+
+                            if (!((opening == '(' && paranthesis == ')') ||
+                                (opening == '{' && paranthesis == '}') ||
+                                (opening == '[' && paranthesis == ']')))
+                            {
+                                Console.WriteLine("\nThe paranthesis in the string is incorrect");
+                                break;
+                            }
+                        }
+                    }
+                
                 }
-               
-                if (input.Contains('(') && input.Contains(')') || input.Contains('{') && input.Contains('}') || input.Contains('[') && input.Contains(']')) 
+                if (openingParanthesis.Count == 0)
                 {
-                    openingParanthesis.Pop();
+                    Console.WriteLine("\nNo unmatched paranthesis left");
                 }
                 else
                 {
-                    Console.WriteLine("Paranthesis does not have a match");
+                    Console.WriteLine("\nUnmatched paranthesis left: "); // visar innehållet av stacken 
+                    foreach (var stackItem in openingParanthesis)
+                    {
+                        Console.WriteLine(stackItem);
+                    }
                 }
-
-                Console.WriteLine("\nContents of the stack: ");
-                foreach (var stackItem in openingParanthesis)
-                {
-                    Console.WriteLine(stackItem);
-                }
+                // Den här uppgiften krävde några omgångar, försökte göra med inspiration av tidigare metoder men anpassa (går att se på tidiga commits på github)
+                // men fick det att funka till slut med hjälp av ChatGpt. Förstår koden, men hade inte kommit på det själv i dagsläget. 
 
             }
-            
-        
-        
-          
+
         }
 
     }
